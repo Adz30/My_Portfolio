@@ -1,0 +1,87 @@
+/* Particle Animation for Hero Section */
+.particle-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, transparent 0%, transparent 100%);
+  overflow: hidden;
+}
+
+.particle-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(white 1px, transparent 1px),
+    radial-gradient(white 1px, transparent 1px);
+  background-size: 50px 50px;
+  background-position: 0 0, 25px 25px;
+  opacity: 0.05;
+  animation: particleShift 120s linear infinite;
+}
+
+@keyframes particleShift {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  25% {
+    transform: translateY(-5%) translateX(1%);
+  }
+  50% {
+    transform: translateY(0) translateX(0);
+  }
+  75% {
+    transform: translateY(5%) translateX(-1%);
+  }
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+}
+
+/* Scroll animations */
+@keyframes fadeUpIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fadeUpIn 0.6s ease-out forwards;
+}
+
+/* Skill bar animation */
+@keyframes growWidth {
+  from { width: 0%; }
+  to { width: var(--skill-level); }
+}
+
+.skill-progress {
+  animation: growWidth 1.5s ease-out forwards;
+}
+
+/* Cursor style */
+body {
+  cursor: default;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Loading spinner animation */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}

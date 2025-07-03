@@ -89,24 +89,8 @@ const Footer = () => {
             </ul>
           </div>
         </div>
-        
-        <div className="border-t border-slate-800 mt-12 pt-6 flex flex-col md:flex-row justify-between items-center">
-          <p>© {new Date().getFullYear()} ADZ.DEV. All rights reserved.</p>
-          <div className="mt-4 md:mt-0">
-            <ul className="flex space-x-6 text-sm">
-              <li>
-                <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-white transition-colors">Cookie Policy</a>
-              </li>
-            </ul>
-          </div>
-        </div>
       </div>
+       
     </footer>
   );
 };

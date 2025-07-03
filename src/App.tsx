@@ -7,6 +7,7 @@ import Projects from './components/Projects';
 import Services from './components/Services';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import Blog from './components/Blog';
 import './styles/animations.css';
 
 function App() {
@@ -60,6 +61,7 @@ function App() {
       <Skills />
       <Projects />
       <Services />
+      <Blog />
       <Contact />
       <Footer />
     </div>

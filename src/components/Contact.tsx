@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Mail, Phone, MapPin, Send, Github, Linkedin } from "lucide-react";
+import emailjs from "@emailjs/browser";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -24,31 +25,32 @@ const Contact = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulating form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitResult({
-        success: true,
-        message: "Thanks for your message! I'll get back to you soon.",
-      });
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
-      // Reset form
-      setFormData({
-        name: "",
-        email: "",
-        subject: "",
-        message: "",
+    emailjs
+      .sendForm(serviceId, templateId, e.currentTarget, publicKey)
+      .then(() => {
+        setIsSubmitting(false);
+        setSubmitResult({
+          success: true,
+          message: "Thanks for your message! I'll get back to you soon.",
+        });
+        setFormData({ name: "", email: "", subject: "", message: "" });
+        setTimeout(() => setSubmitResult(null), 5000);
+      })
+      .catch(() => {
+        setIsSubmitting(false);
+        setSubmitResult({
+          success: false,
+          message: "Oops, something went wrong. Please try again later.",
+        });
       });
-
-      // Clear success message after 5 seconds
-      setTimeout(() => {
-        setSubmitResult(null);
-      }, 5000);
-    }, 1000);
   };
 
   return (
@@ -256,17 +258,17 @@ const Contact = () => {
                   {isSubmitting ? (
                     <>
                       <svg
-                        className="animate-spin -ml-1 mr-2 h-4 w-4 text-white\"
-                        xmlns="http://www.w3.org/2000/svg\"
-                        fill="none\"
+                        className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
                         viewBox="0 0 24 24"
                       >
                         <circle
-                          className="opacity-25\"
-                          cx="12\"
-                          cy="12\"
-                          r="10\"
-                          stroke="currentColor\"
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
                           strokeWidth="4"
                         ></circle>
                         <path

@@ -1,4 +1,4 @@
-import { Code, ExternalLink } from "lucide-react";
+import { Code, ExternalLink, Youtube} from "lucide-react";
 import { useState } from "react";
 
 interface Project {
@@ -10,7 +10,7 @@ interface Project {
   technologies: string[];
   link: string;
   github?: string;
-  youtube?: string;
+  Youtube?: string;
 }
 
 const Projects = () => {
@@ -23,8 +23,7 @@ const Projects = () => {
       description:
         "This is a decentralized lending application built as a capstone project, implementing the ERC-4626 tokenized vault standard. It allows users to deposit assets, take loans secured by collateral, and supports automatic, on-chain time-based liquidation to protect lenders.",
       category: "Defi",
-      image:
-        "https://tan-top-impala-530.mypinata.cloud/ipfs/bafkreihgnczyvfo5xyljfzl5rlwcubm5fxmeyx2ddqijqvg7ofws6unnq4",
+       image: "/images/1-1.png",
       technologies: [
         "Solidity",
         "Hardhat",
@@ -34,7 +33,7 @@ const Projects = () => {
       ],
       link: "https://lendingapp.on-fleek.app/",
       github: "https://github.com/Adz30/Lending_APP",
-      youtube: "https://youtu.be/5J0tUxdQkwU",
+      Youtube: "https://youtu.be/5J0tUxdQkwU",
     },
     {
       id: 2,
@@ -42,12 +41,11 @@ const Projects = () => {
       description:
         "this is an app build to aid in the the creative space where creators can request aid from the community in return for recogntion and it uses Reown Appkit for web3 intregration.",
       category: "Community",
-      image:
-        "https://tan-top-impala-530.mypinata.cloud/ipfs/bafkreiga3zwe7dmgwrt274qa2ulj3lgg24ekztwb7xh37hbh4njsbm3g7e",
+      image: "/images/pulse-board-demo.png",
       technologies: ["Account Abstraction", "firebase", "react", "javascript"],
       link: "https://pulse-board-psi.vercel.app",
       github: "https://github.com/Adz30/pulseBoard",
-      youtube: "https://youtu.be/nj8Z7BXo_Aw",
+      Youtube: "https://youtu.be/nj8Z7BXo_Aw",
     },
     {
       id: 3,
@@ -55,8 +53,7 @@ const Projects = () => {
       description:
         "A decentralized exchange prototype built with React and Solidity, enabling users to swap between two ERC-20 tokens and manage liquidity using the constant product formula. The app features real-time pricing, chart visualizations, and on-chain smart contract interactions via the Ethereum Sepolia testnet.",
       category: "DeFi",
-      image:
-        "https://tan-top-impala-530.mypinata.cloud/ipfs/bafkreic635qhf4yfxwm2uwmljpq42zxsawcm6uvskqxfpgsegybni2f4ti",
+      image: "/images/Amm-demo-image.png",
       technologies: ["Solidity", "Web3", "DeFi", "AMM", "Redux"],
       link: "https://amm-rouge.vercel.app/",
       github: "https://github.com/Adz30/AMM",
@@ -179,14 +176,14 @@ const ProjectCard = ({ project }: { project: Project }) => {
               Source Code <Code size={16} className="ml-1" />
             </a>
           )}
-          {project.youtube && (
+          {project.Youtube && (
             <a
-              href={project.youtube}
+              href={project.Youtube}
               target="_blank"
               rel="noopener noreferrer"
               className="text-sm text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 font-medium flex items-center"
             >
-              Watch Demo <youtube size={16} className="ml-1" />
+              Watch Demo <Youtube size={16} className="ml-1" />
             </a>
           )}
         </div>

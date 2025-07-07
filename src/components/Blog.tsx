@@ -1,45 +1,74 @@
 import React, { useEffect, useState } from "react";
 
-// Render Notion blocks nicely
-function renderBlock(block) {
+interface RichText {
+  plain_text: string;
+}
+
+interface BlockValue {
+  rich_text: RichText[];
+  type?: string;
+  [key: string]: any;
+}
+
+interface NotionBlock {
+  id: string;
+  type: string;
+  [key: string]: BlockValue | any;
+}
+
+interface BlogPost {
+  id: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  date: string;
+  cover?: string;
+}
+
+interface NotionModalProps {
+  slug: string;
+  onClose: () => void;
+}
+
+function renderBlock(block: NotionBlock): JSX.Element {
   const { type, id } = block;
-  const value = block[type];
+  const value = block[type] as BlockValue;
 
   switch (type) {
     case "paragraph":
       return (
         <p key={id} className="mb-4 text-slate-300">
-          {value.rich_text.map((text) => text.plain_text).join("")}
+          {value.rich_text.map((text: RichText) => text.plain_text).join("")}
         </p>
       );
     case "heading_1":
       return (
         <h1 key={id} className="text-4xl font-bold text-white mb-6">
-          {value.rich_text.map((text) => text.plain_text).join("")}
+          {value.rich_text.map((text: RichText) => text.plain_text).join("")}
         </h1>
       );
     case "heading_2":
       return (
         <h2 key={id} className="text-3xl font-semibold text-white mb-5">
-          {value.rich_text.map((text) => text.plain_text).join("")}
+          {value.rich_text.map((text: RichText) => text.plain_text).join("")}
         </h2>
       );
     case "heading_3":
       return (
         <h3 key={id} className="text-2xl font-semibold text-white mb-4">
-          {value.rich_text.map((text) => text.plain_text).join("")}
+          {value.rich_text.map((text: RichText) => text.plain_text).join("")}
         </h3>
       );
     case "bulleted_list_item":
       return (
         <li key={id} className="ml-6 list-disc text-slate-300 mb-1">
-          {value.rich_text.map((text) => text.plain_text).join("")}
+          {value.rich_text.map((text: RichText) => text.plain_text).join("")}
         </li>
       );
     case "numbered_list_item":
       return (
         <li key={id} className="ml-6 list-decimal text-slate-300 mb-1">
-          {value.rich_text.map((text) => text.plain_text).join("")}
+          {value.rich_text.map((text: RichText) => text.plain_text).join("")}
         </li>
       );
     case "quote":
@@ -48,7 +77,7 @@ function renderBlock(block) {
           key={id}
           className="border-l-4 border-slate-600 pl-4 italic text-slate-400 mb-6"
         >
-          {value.rich_text.map((text) => text.plain_text).join("")}
+          {value.rich_text.map((text: RichText) => text.plain_text).join("")}
         </blockquote>
       );
     case "code":
@@ -57,7 +86,7 @@ function renderBlock(block) {
           key={id}
           className="bg-slate-800 p-4 rounded mb-6 overflow-x-auto text-sm font-mono text-green-400"
         >
-          <code>{value.rich_text.map((text) => text.plain_text).join("")}</code>
+          <code>{value.rich_text.map((text: RichText) => text.plain_text).join("")}</code>
         </pre>
       );
     case "image":
@@ -84,11 +113,11 @@ function renderBlock(block) {
   }
 }
 
-function NotionModal({ slug, onClose }) {
-  const [metadata, setMetadata] = useState(null);
-  const [blocks, setBlocks] = useState([]);
+function NotionModal({ slug, onClose }: NotionModalProps) {
+  const [metadata, setMetadata] = useState<BlogPost | null>(null);
+  const [blocks, setBlocks] = useState<NotionBlock[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchContent() {
@@ -101,13 +130,17 @@ function NotionModal({ slug, onClose }) {
         setMetadata(data.metadata);
         setBlocks(data.blocks);
       } catch (err) {
-        setError(err.message);
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError("Unknown error");
+        }
       } finally {
         setLoading(false);
       }
     }
-    fetchContent();
 
+    fetchContent();
     window.history.replaceState(null, "", `#blog=${slug}`);
 
     return () => {
@@ -127,6 +160,8 @@ function NotionModal({ slug, onClose }) {
         <div className="text-red-400 text-lg">{error}</div>
       </div>
     );
+
+  if (!metadata) return null;
 
   return (
     <div
@@ -154,7 +189,9 @@ function NotionModal({ slug, onClose }) {
 
         <article className="prose prose-invert max-w-none">
           {blocks.map((block) => (
-            <React.Fragment key={block.id}>{renderBlock(block)}</React.Fragment>
+            <React.Fragment key={block.id}>
+              {renderBlock(block)}
+            </React.Fragment>
           ))}
         </article>
       </div>
@@ -163,10 +200,10 @@ function NotionModal({ slug, onClose }) {
 }
 
 export default function Blog() {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [modalSlug, setModalSlug] = useState(null);
+  const [error, setError] = useState<string | null>(null);
+  const [modalSlug, setModalSlug] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchPosts() {
@@ -176,11 +213,16 @@ export default function Blog() {
         const data = await res.json();
         setPosts(data);
       } catch (err) {
-        setError(err.message);
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError("Unknown error");
+        }
       } finally {
         setLoading(false);
       }
     }
+
     fetchPosts();
 
     const hash = window.location.hash;
@@ -195,16 +237,16 @@ export default function Blog() {
       <p className="text-white p-4 text-center animate-fade-up">Loading posts…</p>
     );
   if (error)
-    return (
-      <p className="text-red-400 p-4 text-center">{error}</p>
-    );
+    return <p className="text-red-400 p-4 text-center">{error}</p>;
 
   return (
     <>
       <section id="blog" className="py-24 bg-slate-900">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">Latest Blog Posts</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
+              Latest Blog Posts
+            </h2>
             <div className="h-1 w-20 bg-violet-600 mx-auto"></div>
             <p className="mt-6 text-slate-400 max-w-3xl mx-auto">
               Insights on Web3, smart contracts, and blockchain development.
@@ -246,12 +288,7 @@ export default function Blog() {
         </div>
       </section>
 
-      {modalSlug && (
-        <NotionModal
-          slug={modalSlug}
-          onClose={() => setModalSlug(null)}
-        />
-      )}
+      {modalSlug && <NotionModal slug={modalSlug} onClose={() => setModalSlug(null)} />}
     </>
   );
 }

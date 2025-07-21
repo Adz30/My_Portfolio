@@ -1,31 +1,67 @@
 import React from 'react';
 
 const Skills = () => {
-  const technicalSkills = [
-    { name: 'Solidity', level: 95 },
-    { name: 'ERC-4626', level: 90 },
-    { name: 'Web3.js/Ethers.js', level: 85 },
-    { name: 'Hardhat', level: 88 },
-    { name: 'Smart Contract Security', level: 92 },
-    { name: 'Account Abstraction', level: 95 },
-  ];
-
-  const blockchainPlatforms = [
-    { name: 'Ethereum', level: 95 },
-    { name: 'Base', level: 85 },
-    { name: 'Polygon', level: 88 },
-    { name: 'Flare', level: 75 },
-    { name: 'Avalanche', level: 80 },
-    { name: 'Arbitrum', level: 70 },
-  ];
-
-  const webDevelopment = [
-    { name: 'JavaScript', level: 90 },
-    { name: 'React', level: 85 },
-    { name: 'Node.js', level: 80 },
-    { name: 'Redux', level: 82 },
-    { name: 'Bootstrap', level: 85 },
-    { name: 'Firebase', level: 78 },
+  const skillSections = [
+    {
+      title: 'Smart Contract Development',
+      skills: [
+        'Solidity',
+        'ERC-20 / ERC-721 / ERC-4626',
+        'Web3.js / Ethers.js',
+        'Hardhat',
+        'OpenZeppelin',
+        'Smart Contract Security',
+        'Slither / MythX',
+        'Account Abstraction (ERC-4337)',
+        'IPFS',
+      ],
+    },
+    {
+      title: 'Blockchain Platforms',
+      skills: [
+        'Ethereum',
+        'Base',
+        'Polygon',
+        'Avalanche',
+        'Arbitrum',
+        'Flare',
+        'Optimism',
+        'BSC (BNB Chain)',
+        'Fantom',
+        'Mantle',
+        'Mode',
+      ],
+    },
+    {
+      title: 'Web Development',
+      skills: [
+        'JavaScript',
+        'React',
+        'Node.js',
+        'Redux',
+        'Bootstrap',
+        'Firebase',
+        'Tailwind CSS',
+        'Next.js',
+        'HTML/CSS',
+        'Vite',
+      ],
+    },
+    {
+      title: 'Tools & Automation',
+      skills: [
+        'n8n',
+        'Zapier',
+        'LangChain',
+        'ChatGPT / OpenAI APIs',
+        'Puppeteer',
+        'Playwright',
+        'Notion API',
+        'Google Sheets API',
+        'Postman',
+        'GitHub Actions',
+      ],
+    },
   ];
 
   return (
@@ -35,62 +71,33 @@ const Skills = () => {
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Technical Skills</h2>
           <div className="h-1 w-20 bg-violet-600 mx-auto"></div>
           <p className="mt-6 text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
-            With deep expertise across blockchain technologies and web development, 
-            I deliver secure and scalable decentralized solutions.
+            From secure smart contracts to automation tooling, I build scalable, efficient solutions across the full Web3 stack.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <SkillCategory 
-            title="Smart Contract Development" 
-            skills={technicalSkills} 
-            className="bg-gradient-to-br from-violet-500/10 to-indigo-500/10"
-          />
-          
-          <SkillCategory 
-            title="Blockchain Platforms" 
-            skills={blockchainPlatforms} 
-            className="bg-gradient-to-br from-blue-500/10 to-cyan-500/10"
-          />
-          
-          <SkillCategory 
-            title="Web Development" 
-            skills={webDevelopment} 
-            className="bg-gradient-to-br from-emerald-500/10 to-teal-500/10"
-          />
+        <div
+          className="flex space-x-6 overflow-x-auto scrollbar-thin scrollbar-thumb-violet-400 scrollbar-track-gray-100
+            dark:scrollbar-thumb-violet-600 dark:scrollbar-track-slate-800
+            snap-x snap-mandatory px-1"
+        >
+          {skillSections.map((section, idx) => (
+            <div
+              key={idx}
+              className="min-w-[300px] max-w-xs p-6 rounded-2xl shadow-md
+                bg-gradient-to-br from-violet-500/10 to-indigo-500/10
+                dark:from-violet-500/20 dark:to-indigo-500/20 snap-center"
+            >
+              <h3 className="text-xl font-semibold mb-4 text-center">{section.title}</h3>
+              <ul className="list-disc list-inside space-y-2 text-slate-700 dark:text-slate-300">
+                {section.skills.map((skill, i) => (
+                  <li key={i}>{skill}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
       </div>
     </section>
-  );
-};
-
-interface SkillCategoryProps {
-  title: string;
-  skills: { name: string; level: number }[];
-  className?: string;
-}
-
-const SkillCategory = ({ title, skills, className }: SkillCategoryProps) => {
-  return (
-    <div className={`p-6 rounded-2xl ${className}`}>
-      <h3 className="text-xl font-semibold mb-6 text-center">{title}</h3>
-      <div className="space-y-4">
-        {skills.map((skill, index) => (
-          <div key={index}>
-            <div className="flex justify-between mb-1">
-              <span className="font-medium">{skill.name}</span>
-              <span className="text-sm text-slate-600 dark:text-slate-400">{skill.level}%</span>
-            </div>
-            <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
-              <div 
-                className="bg-gradient-to-r from-violet-600 to-indigo-600 h-2 rounded-full"
-                style={{ width: `${skill.level}%` }}
-              ></div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
   );
 };
 

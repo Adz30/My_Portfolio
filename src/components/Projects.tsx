@@ -19,10 +19,22 @@ const Projects = () => {
   const projects: Project[] = [
     {
       id: 1,
+      title: "RWA Luxury watch",
+      description: "this is a RWA luxury watch applicaiton that turns your watch into an NFT that you can collatralise against a loan or fractionalise and deploy in an liqudity pool to allow trading",
+      category:"NFT",
+      image: "/images/RWA.png",
+      technologies: ["Solidity", "Hardat", "Redux", "React", "ERC-721", "ERC-20"],
+     // link: "coming soon",
+      github: "https://github.com/Adz30/watches-rwa-app",
+      Youtube: "https://youtu.be/5ZEDs8Xoaak"
+
+    },
+    {
+      id: 2,
       title: "Lending App",
       description:
         "This is a decentralized lending application built as a capstone project, implementing the ERC-4626 tokenized vault standard. It allows users to deposit assets, take loans secured by collateral, and supports automatic, on-chain time-based liquidation to protect lenders.",
-      category: "Defi",
+      category: "DeFi",
        image: "/images/1-1.png",
       technologies: [
         "Solidity",
@@ -36,7 +48,7 @@ const Projects = () => {
       Youtube: "https://youtu.be/5J0tUxdQkwU",
     },
     {
-      id: 2,
+      id: 3,
       title: "Pulse Board",
       description:
         "this is an app build to aid in the the creative space where creators can request aid from the community in return for recogntion and it uses Reown Appkit for web3 intregration.",
@@ -48,7 +60,7 @@ const Projects = () => {
       Youtube: "https://youtu.be/nj8Z7BXo_Aw",
     },
     {
-      id: 3,
+      id: 4,
       title: "AMM token swap",
       description:
         "A decentralized exchange prototype built with React and Solidity, enabling users to swap between two ERC-20 tokens and manage liquidity using the constant product formula. The app features real-time pricing, chart visualizations, and on-chain smart contract interactions via the Ethereum Sepolia testnet.",
@@ -157,15 +169,17 @@ const ProjectCard = ({ project }: { project: Project }) => {
           )}
         </div>
 
-        <div className="flex space-x-3">
-          <a
-            href={project.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm text-violet-600 dark:text-violet-400 hover:text-violet-700 dark:hover:text-violet-300 font-medium flex items-center"
-          >
-            View Project <ExternalLink size={16} className="ml-1" />
-          </a>
+    <div className="flex space-x-3">
+  {project.link && (
+    <a
+      href={project.link}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-sm text-violet-600 dark:text-violet-400 hover:text-violet-700 dark:hover:text-violet-300 font-medium flex items-center"
+    >
+      View Project <ExternalLink size={16} className="ml-1" />
+    </a>
+  )}
           {project.github && (
             <a
               href={project.github}

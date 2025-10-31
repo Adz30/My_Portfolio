@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Mail, Phone, MapPin, Send, Github, Linkedin } from "lucide-react";
 import emailjs from "@emailjs/browser";
+import { PopupButton } from "react-calendly";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -17,9 +18,7 @@ const Contact = () => {
   } | null>(null);
 
   const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -56,18 +55,40 @@ const Contact = () => {
   return (
     <section id="contact" className="py-24 bg-slate-50 dark:bg-slate-900/50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Get In Touch</h2>
           <div className="h-1 w-20 bg-violet-600 mx-auto"></div>
           <p className="mt-6 text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
-            Have a blockchain project in mind or want to discuss potential
-            collaborations? Reach out and let's build something amazing
-            together.
+            Have a blockchain project in mind or want to discuss potential collaborations? Reach out and let's build something amazing together.
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
+          {/* Left Column */}
           <div className="lg:col-span-2 space-y-8">
+            {/* Calendly Card */}
+            <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <Send className="h-10 w-10 p-2 bg-violet-100 dark:bg-violet-900/20 text-violet-600 rounded-lg" />
+                  <div className="ml-4">
+                    <h3 className="text-lg font-semibold mb-1">Schedule a Call</h3>
+                    <p className="text-slate-600 dark:text-slate-400 text-sm">
+                      Pick a time that works for you.
+                    </p>
+                  </div>
+                </div>
+                <PopupButton
+                  url="https://calendly.com/adzdev-xyz/30min"
+                  rootElement={document.getElementById("root")!}
+                  text="Book"
+                  className="px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white rounded-lg font-medium transition-colors text-sm"
+                />
+              </div>
+            </div>
+
+            {/* Email Card */}
             <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm">
               <div className="flex items-start">
                 <div className="flex-shrink-0">
@@ -76,7 +97,7 @@ const Contact = () => {
                 <div className="ml-4">
                   <h3 className="text-lg font-semibold mb-1">Email</h3>
                   <a
-                    href="mailto:contact@blockchaindev.com"
+                    href="mailto:kaw94@hotmail.co.uk"
                     className="text-slate-600 dark:text-slate-400 hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
                   >
                     kaw94@hotmail.co.uk
@@ -85,6 +106,7 @@ const Contact = () => {
               </div>
             </div>
 
+            {/* Phone Card */}
             <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm">
               <div className="flex items-start">
                 <div className="flex-shrink-0">
@@ -102,6 +124,7 @@ const Contact = () => {
               </div>
             </div>
 
+            {/* Location Card */}
             <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm">
               <div className="flex items-start">
                 <div className="flex-shrink-0">
@@ -109,13 +132,12 @@ const Contact = () => {
                 </div>
                 <div className="ml-4">
                   <h3 className="text-lg font-semibold mb-1">Location</h3>
-                  <p className="text-slate-600 dark:text-slate-400">
-                    Ammanford, Wales, Uk
-                  </p>
+                  <p className="text-slate-600 dark:text-slate-400">Ammanford, Wales, UK</p>
                 </div>
               </div>
             </div>
 
+            {/* Social Links */}
             <div className="flex space-x-4 pt-4">
               <a
                 href="https://github.com/Adz30/"
@@ -147,6 +169,7 @@ const Contact = () => {
             </div>
           </div>
 
+          {/* Right Column: Contact Form */}
           <div className="lg:col-span-3">
             <div className="bg-white dark:bg-slate-800 rounded-xl p-8 shadow-sm">
               <h3 className="text-xl font-semibold mb-6">Send Me a Message</h3>
@@ -166,10 +189,7 @@ const Contact = () => {
               <form onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
                   <div>
-                    <label
-                      htmlFor="name"
-                      className="block text-sm font-medium mb-2"
-                    >
+                    <label htmlFor="name" className="block text-sm font-medium mb-2">
                       Your Name
                     </label>
                     <input
@@ -185,10 +205,7 @@ const Contact = () => {
                   </div>
 
                   <div>
-                    <label
-                      htmlFor="email"
-                      className="block text-sm font-medium mb-2"
-                    >
+                    <label htmlFor="email" className="block text-sm font-medium mb-2">
                       Your Email
                     </label>
                     <input
@@ -205,10 +222,7 @@ const Contact = () => {
                 </div>
 
                 <div className="mb-6">
-                  <label
-                    htmlFor="subject"
-                    className="block text-sm font-medium mb-2"
-                  >
+                  <label htmlFor="subject" className="block text-sm font-medium mb-2">
                     Subject
                   </label>
                   <select
@@ -222,18 +236,13 @@ const Contact = () => {
                     <option value="">Select a subject</option>
                     <option value="Project Inquiry">Project Inquiry</option>
                     <option value="Consultation">Consultation Request</option>
-                    <option value="Collaboration">
-                      Collaboration Opportunity
-                    </option>
+                    <option value="Collaboration">Collaboration Opportunity</option>
                     <option value="Other">Other</option>
                   </select>
                 </div>
 
                 <div className="mb-6">
-                  <label
-                    htmlFor="message"
-                    className="block text-sm font-medium mb-2"
-                  >
+                  <label htmlFor="message" className="block text-sm font-medium mb-2">
                     Your Message
                   </label>
                   <textarea

@@ -12,10 +12,6 @@
     {
       "src": "/api/page/(.*)",
       "dest": "/api/page/[slug].js"
-    },
-      {
-      "src": "/(.*)",
-      "dest": "/index.html"
     }
   ]
 }

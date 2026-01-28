@@ -1,21 +1,22 @@
 {
-  "functions": {
-    "api/**/*.js": {
-      "runtime": "vercel-node@18"
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build"
+    },
+    {
+      "src": "server/**/*.js",
+      "use": "@vercel/node"
     }
-  },
-  "rewrites": [
+  ],
+  "routes": [
     {
-      "source": "/api/posts",
-      "destination": "/api/posts.js"
+      "src": "/api/(.*)",
+      "dest": "/server/$1.js"
     },
     {
-      "source": "/api/page/:slug",
-      "destination": "/api/page/[slug].js"
-    },
-    {
-      "source": "/:path*",
-      "destination": "/index.html"
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ]
 }

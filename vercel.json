@@ -1,18 +1,17 @@
 {
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build"
-    },
-    {
-      "src": "server/**/*.js",
-      "use": "@vercel/node"
+  "functions": {
+    "api/**/*.js": {
+      "runtime": "nodejs18"
     }
-  ],
+  },
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "/server/$1.js"
+      "src": "/api/posts",
+      "dest": "/api/posts.js"
+    },
+    {
+      "src": "/api/page/(.*)",
+      "dest": "/api/page/[slug].js"
     },
     {
       "src": "/(.*)",

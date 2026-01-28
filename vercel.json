@@ -1,0 +1,26 @@
+{
+  "version": 3,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "dist" }
+    },
+    {
+      "src": "api/**/*.js",
+      "use": "@vercel/node",
+      "config": { "runtime": "nodejs18.x" }
+    }
+  ],
+  "routes": [
+    // API routes
+    { "src": "/api/posts", "dest": "/api/posts.js" },
+    { "src": "/api/page/(.*)", "dest": "/api/page/[slug].js" },
+
+    // Serve static assets from dist/
+    { "handle": "filesystem" },
+
+    // SPA fallback for all other routes
+    { "src": "/(.*)", "dest": "/index.html" }
+  ]
+}

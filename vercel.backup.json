@@ -5,12 +5,17 @@
     }
   },
   "routes": [
-   
-    { "src": "/api/posts", "dest": "/api/posts.js" },
-    { "src": "/api/page/(.*)", "dest": "/api/page/[slug].js" },
-
- 
-    { "handle": "filesystem" },
-    { "src": "/(.*)", "dest": "/index.html" }
+    {
+      "src": "/api/posts",
+      "dest": "/api/posts.js"
+    },
+    {
+      "src": "/api/page/(.*)",
+      "dest": "/api/page/[slug].js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
   ]
 }

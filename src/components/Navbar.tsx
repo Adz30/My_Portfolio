@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Menu, X, Github } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate ,useLocation} from "react-router-dom";
 import { ThemeToggle } from "./ThemeToggle";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,7 +19,7 @@ const Navbar = () => {
 
   const scrollToSection = (id) => {
     setIsMenuOpen(false);
-    if (window.location.pathname !== "/") {
+    if (location.pathname !== "/") {
       navigate("/"); // go to homepage first
       setTimeout(() => {
         document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
